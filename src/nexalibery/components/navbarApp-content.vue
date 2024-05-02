@@ -2,26 +2,35 @@
   <header>
     <nav>
       <div class="logo">
-        <router-link to="/"><img src="../../assets/images/Logo.png" alt="Logo"></router-link>
+        <router-link to="/menu"><img src="../../assets/images/Logo.png" alt="Logo"></router-link>
 
       </div>
-      <!--<div class="nav-links">
-        <router-link to="/services">Services</router-link>
-        <router-link to="/pricing">Pricing</router-link>
-        <router-link to="/about">About Us</router-link>
-      </div>-->
+      <div class="nav-links">
+        <router-link to="/library">Library</router-link>
+        <router-link to="/podcast">Podcast</router-link>
+        <router-link to="/multimedia">Multimedia</router-link>
+      </div>
       <div class="auth-buttons">
-        <router-link to="/login" >Log In</router-link>
-        <router-link to="/register" class="register-btn">Register Now</router-link>
+        <Button label="Log Out" class="buttonLogOut" @click="logout" />
+        <router-link to="/userProfile" class="register-btn">Account</router-link>
       </div>
     </nav>
   </header>
 </template>
 
 <script>
+import Button from 'primevue/button';
 export default {
+  components:{
+    Button
+  },
   props: {
     isLoggedIn: Boolean
+  },
+  methods: {
+    logout() {
+      this.$emit('logout');
+    }
   }
 };
 </script>
@@ -66,9 +75,11 @@ nav {
 }
 
 .auth-buttons {
-  margin-left: 100px;
+  display: flex;
+  align-items: center;
+  margin-left: auto;
 }
-.auth-buttons a {
+.auth-buttons a, .buttonLogOut {
   color: #fff;
   text-decoration: none;
   margin-left: 10px;
@@ -80,7 +91,7 @@ nav {
 }
 .auth-buttons a.register-btn {
   background-color: #6cb2ce;
-  color: #ffffff;
   padding: 10px 30px;
 }
+
 </style>

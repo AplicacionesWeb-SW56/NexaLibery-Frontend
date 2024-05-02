@@ -1,16 +1,13 @@
 <template>
   <div class="login-form">
-    <h2>Log In</h2>
-    <form @submit.prevent="submitForm">
+    <h2>Restort Password</h2>
+    <form >
       <div class="form-container">
         <div class="form-fields">
-          <InputText v-model="user.email" type="email" placeholder="Email" />
-          <Password v-model="user.password" placeholder="Password" />
+          <InputText v-model="user.newPassword" type="email" placeholder="New Passowrd" />
+          <Password v-model="user.confirmPassword" placeholder="Confirm Password" />
         </div>
-        <Button label="Ingresar" class="login-button" />
-        <div class="forgot-password">
-          <router-link to="/forgot-password">Forgot your password?</router-link>
-        </div>
+        <router-link to="/login"><Button label="Confirm" class="login-button" /></router-link>
       </div>
     </form>
   </div>
@@ -20,7 +17,6 @@
 import InputText from 'primevue/inputtext';
 import Password from 'primevue/password';
 import Button from 'primevue/button';
-
 export default {
   components: {
     InputText,
@@ -30,15 +26,10 @@ export default {
   data() {
     return {
       user: {
-        email: '',
-        password: ''
+        newPassword: '',
+        confirmPassword: ''
       }
     };
-  },
-  methods: {
-    submitForm() {
-      console.log("Login Data:", this.user);
-    }
   }
 }
 </script>
@@ -93,7 +84,4 @@ export default {
   height: 50px;
 }
 
-.forgot-password {
-  margin-top: 10px;
-}
 </style>

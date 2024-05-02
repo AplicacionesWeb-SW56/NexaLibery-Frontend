@@ -11,7 +11,9 @@
           <Password v-model="user.confirmPassword" placeholder="Repeat Your Password" feedback="false"/>
         </div>
         <div class="form-actions">
-          <Button label="Choose a plan" class="register-button"/>
+          <router-link to="/pricing" >
+          <Button label="Register and Choose a plan" class="register-button"/>
+          </router-link>
           <div class="login-link">
             Already have an account? <router-link to="/login">Login here</router-link>
           </div>
@@ -58,7 +60,7 @@ export default {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  min-height: 71.7vh;
+  min-height: 70.9vh;
   padding-bottom: 50px;
 }
 
