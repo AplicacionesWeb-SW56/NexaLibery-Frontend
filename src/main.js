@@ -8,5 +8,5 @@ import 'primeicons/primeicons.css';
 
 const app = createApp(App);
 app.use(PrimeVue);
-app.use(router); // Asegúrate de usar el router
+app.use(router);
 app.mount('#app');
