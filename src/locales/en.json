@@ -1,0 +1,203 @@
+{
+  "navigation": {
+    "library": "Library",
+    "podcast": "Podcast",
+    "multimedia": "Multimedia",
+    "login": "Log In",
+    "logout": "Log Out",
+    "signin": "Register Now",
+    "profile": "Profile",
+    "upload": "Upload"
+  },
+  "profile": {
+    "payment-details": {
+      "title": "Payment Details",
+      "card-number": "Card Number",
+      "alias": "Alias"
+    },
+    "personal-info": {
+      "title": "Personal Information",
+      "first-name": "First Name",
+      "last-name": "Last Name",
+      "email": "E-mail",
+      "password": "Password"
+    },
+    "biography": "Biography",
+    "welcome-back": "Welcome back"
+  },
+  "auth": {
+    "login": {
+      "title": "Log In",
+      "toast": {
+        "summary": "Server Error"
+      },
+      "inputs": {
+        "email": {
+          "title": "E-mail",
+          "placeholder": "E-mail Address"
+        },
+        "password": {
+          "title": "Password",
+          "placeholder": "Password"
+        }
+      },
+      "validations": {
+        "email": {
+          "required": "E-mail Required",
+          "email": "Invalid E-mail"
+        },
+        "password": {
+          "required": "Password Required",
+          "min-length": "{size} Characters Minimum",
+          "max-length": "{size} Characters Maximum"
+        }
+      },
+      "button": "Continue",
+      "to-sign-in": {
+        "no-account": "Don't have an account?",
+        "register-now": "Register Now"
+      }
+    },
+    "signin": {
+      "title": "Register",
+      "inputs": {
+        "email": {
+          "title": "E-mail",
+          "placeholder": "E-mail Address"
+        },
+        "password": {
+          "title": "Password",
+          "placeholder": "Password"
+        },
+        "name": {
+          "title": "Name",
+          "placeholder": "Name"
+        },
+        "description": {
+          "title": "Description",
+          "placeholder": "Description"
+        },
+        "card": {
+          "title": "Card Number",
+          "placeholder": "Card Number"
+        },
+        "born": {
+          "title": "Born Date",
+          "placeholder": "Born Date"
+        },
+        "photo": {
+          "title": "Photo URL",
+          "placeholder": "Photo URL"
+        }
+      },
+      "validations": {
+        "email": {
+          "required": "E-mail Required",
+          "email": "Invalid E-mail"
+        },
+        "password": {
+          "required": "Password Required",
+          "min-length": "{size} Characters Minimum",
+          "max-length": "{size} Characters Maximum"
+        },
+        "name": {
+          "required": "Name Required",
+          "min-length": "{size} Characters Minimum",
+          "max-length": "{size} Characters Maximum"
+        },
+        "description": {
+          "required": "Description Required",
+          "max-length": "{size} Characters Maximum"
+        },
+        "card": {
+          "required": "Card Required",
+          "min-length": "{size} Digits Minimum",
+          "max-length": "{size} Digits Maximum"
+        },
+        "born": {
+          "required": "Born Date Required"
+        },
+        "photo": {
+          "required": "Photo Required",
+          "url": "Url Invalid"
+        }
+      },
+      "toast": {
+        "summary": "Server Error"
+      },
+      "button": "Continue",
+      "to-log-in": {
+        "has-account": "Already have an account?",
+        "log-in-now": "Log In Now"
+      }
+    }
+  },
+  "library": {
+    "read-more": "Read More",
+    "title": "Books"
+  },
+  "podcast": {
+    "play": "Play",
+    "title": "Podcasts"
+  },
+  "admin":{
+    "upload":{
+      "title": "Upload Media",
+      "inputs":{
+        "title":{
+          "title": "Title",
+          "placeholder": "Title"
+        },
+        "description":{
+          "title": "Description",
+          "placeholder": "Description"
+        },
+        "pic":{
+          "title": "Pic",
+          "placeholder": "Pic"
+        },
+        "url":{
+          "title": "Url",
+          "placeholder": "Url"
+        },
+        "premium":{
+          "title": "Suscription"
+        },
+        "type":{
+          "title": "Media Type"
+        }
+      },
+      "validations":{
+        "title":{
+          "required": "Title Required",
+          "min-length": "{size} Characters Minimum",
+          "max-length": "{size} Characters Maximum"
+        },
+        "description":{
+          "required": "Description Required",
+          "min-length": "{size} Characters Minimum",
+          "max-length": "{size} Characters Maximum"
+        },
+        "pic":{
+          "required": "Pic Required",
+          "url": "Url Invalid"
+        },
+        "url":{
+          "required": "Url Required",
+          "url": "Url Invalid"
+        },
+        "premium":{
+          "required": "Suscription Required"
+        },
+        "type":{
+          "required": "Media Type Required"
+        }
+      },
+      "button": "Continue",
+      "toast": {
+        "error": "Server Error",
+        "success": "{type} Uploaded"
+      }
+    }
+  }
+}

@@ -11,3 +11,11 @@ const http = axios.create({
 });
 
 export default http;
+
+const API_AUX_URL = import.meta.env.VITE_API_AUX_URL;
+export const auxHttp = axios.create({
+    baseURL: API_AUX_URL,
+    headers: {
+        'Content-type': 'application/json'
+    }
+});

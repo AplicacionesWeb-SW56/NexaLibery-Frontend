@@ -1,35 +1,62 @@
 @import './base.css';
+@import url('https://fonts.googleapis.com/css2?family=Andada+Pro:ital,wght@0,400..840;1,400..840&display=swap');
+
+:root {
+  --button-background: #6CB2CE;
+  --search-background: #6CB2CE;
+  --card-background: #6CB2CE;
+  --search-background-placeholder: #22404d;
+  --header-background: #223039;
+  
+  --main-text-color: #000000;
+  --header-text-color: #FFFFFF;
+
+  background-color: white;
+}
+
+.p-toast-message-content {
+  gap: 1rem;
+}
+
+p, span, h1, h2, h3, input, i{
+  font-family: 'Andada Pro';
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 28px;
+  color: var(--main-text-color);
+  overflow-wrap: break-word;
+}
+
+header *,
+header *::before,
+header *::after{
+  color: var(--header-text-color);
+}
+
+.p-button:not(.p-button-link){
+    background-color: var(--button-background);
+    border-color: var(--button-background);
+}
+
+button:not(link=true) *,
+button:not(link=true) *::before,
+button:not(link=true) *::after{
+  background-color: var(--button-background);
+  border-color: var(--button-background);
+  color: #FFFFFF;
+}
+
+h2 {
+  font-weight: 600;
+  font-size: 1.4rem;
+}
+
+h3 {
+  font-weight: 550;
+  font-size: 1.2rem;
+}
 
 #app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  font-weight: normal;
-}
-
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-  padding: 3px;
-}
-
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
-}
-
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
-
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
+  margin: 0;
+  padding: 0;
 }

@@ -1,0 +1,22 @@
+name: nexalibery
+root: .
+
+# start session with this window open
+# startup_window: editor
+
+windows:
+  - shell:
+  - editor: nvim .
+  - server:
+      layout: a455,133x34,0,0{38x34,0,0,2,94x34,39,0[94x11,39,0,3,94x12,39,12,4,94x9,39,25,5]}
+      panes:
+          - 
+          - npm run fapi
+          - npm run dev
+          - npm run dev-responsive
+  - backend:
+      layout: af9f,133x34,0,0[133x17,0,0,0,133x16,0,18,1]
+      root: ../NexaLibery-Backend/NexaLibery-Backend.API/
+      panes:
+          - 
+          -

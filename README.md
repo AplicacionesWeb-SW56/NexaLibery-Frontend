@@ -1,5 +1,6 @@
 # NexaLibery-Frontend
 
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQViZ4D-coywbeyEnkh1RWAzg4UghGVyyl2SSaZ35c4VA&s" />
 This template should help get you started developing with Vue 3 in Vite.
 
 ## Recommended IDE Setup

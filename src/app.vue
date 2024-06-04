@@ -1,37 +1,43 @@
-<template>
-  <div>
-    <navbar-content v-if="!isLoggedIn"></navbar-content>
-    <navbarApp-content v-else @logout="logoutHandler"></navbarApp-content>
-    <router-view @login-success="loginHandler"></router-view>
-    <footer-content v-if="!isLoggedIn"></footer-content>
-  </div>
-</template>
-
 <script>
-import NavbarContent from "@/public/components/navbar-content.vue";
-import NavbarAppContent from "@/nexalibery/components/navbarApp-content.vue";
-import footerContent from "@/public/components/footer-content.vue";
+import Navbar from "@/public/components/navbar.component.vue";
+import Sidebar from "@/public/components/sidebar.component.vue";
+import { LocalAuthApiService } from "@/shared/services/local-auth-api.service";
+import { UserApiService } from "@/user/services/user-api.service";
+
 export default {
-  name: 'App',
+  name: "app",
   components: {
-    NavbarContent,
-    NavbarAppContent,
-    footerContent
+    Navbar,
+    Sidebar,
   },
   data() {
     return {
-      isLoggedIn: false
-    }
+      userApi: new UserApiService(),
+      localAuthApi: new LocalAuthApiService(),
+    };
   },
-  methods: {
-    loginHandler() {
-      this.isLoggedIn = true;
-      this.$router.push("/menu");
-    },
-    logoutHandler() {
-      this.isLoggedIn = false;
-      this.$router.push('/login');
-    }
-  }
-}
+  methods: {},
+};
 </script>
+
+<template>
+  <Sidebar
+    ref="sidebar"
+    :authenticated="localAuthApi.isAuth()"
+    :user="localAuthApi.getLocalUser()"
+  />
+  <navbar
+    :authenticated="localAuthApi.isAuth()"
+    :user="localAuthApi.getLocalUser()"
+    @toggle-sidebar="$refs.sidebar.toggleVisible()"
+  />
+  <main>
+    <router-view />
+  </main>
+</template>
+
+<style>
+main {
+  flex: 1;
+}
+</style>

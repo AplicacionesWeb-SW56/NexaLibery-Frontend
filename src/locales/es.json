@@ -1,0 +1,203 @@
+{
+  "navigation": {
+    "library": "Libreria",
+    "podcast": "Podcasts",
+    "multimedia": "Multimedia",
+    "login": "Iniciar Sesion",
+    "logout": "Salir",
+    "signin": "Registrarse",
+    "profile": "Perfil",
+    "upload": "Subir"
+  },
+  "profile": {
+    "payment-details": {
+      "title": "Detalles de Pago",
+      "card-number": "Numero de Tarjeta",
+      "alias": "Apodo"
+    },
+    "personal-info": {
+      "title": "Informacion Personal",
+      "first-name": "Primer Nombre",
+      "last-name": "Apellido",
+      "email": "Correo",
+      "password": "Contraseña"
+    },
+    "biography": "Descripcion",
+    "welcome-back": "Bienvenido denuevo"
+  },
+  "auth": {
+    "login": {
+      "title": "Iniciar Sesion",
+      "inputs": {
+        "email": {
+          "title": "Correo",
+          "placeholder": "Correo Electronico"
+        },
+        "password": {
+          "title": "Contraseña",
+          "placeholder": "Contraseña"
+        }
+      },
+      "toast": {
+        "summary": "Error del Servidor"
+      },
+      "validations": {
+        "email": {
+          "required": "Correo Requerido",
+          "email": "Email Invalido"
+        },
+        "password": {
+          "required": "Contraseña Requerida",
+          "min-length": "Minimo {size} Caracteres",
+          "max-length": "Maximo {size} Caracteres"
+        }
+      },
+      "button": "Continuar",
+      "to-sign-in": {
+        "no-account": "¿No tienes una cuenta?",
+        "register-now": "Unete"
+      }
+    },
+    "signin": {
+      "title": "Registrarse",
+      "inputs": {
+        "email": {
+          "title": "Correo",
+          "placeholder": "Correo Electronico"
+        },
+        "password": {
+          "title": "Contraseña",
+          "placeholder": "Contraseña"
+        },
+        "name": {
+          "title": "Nombre",
+          "placeholder": "Nombre"
+        },
+        "description": {
+          "title": "Descripcion",
+          "placeholder": "Descripcion"
+        },
+        "card": {
+          "title": "Numero de Tarjeta",
+          "placeholder": "Tarjeta"
+        },
+        "born": {
+          "title": "Fecha de Cumpleaños",
+          "placeholder": "Fecha"
+        },
+        "photo": {
+          "title": "Link Foto",
+          "placeholder": "Link"
+        }
+      },
+      "validations": {
+        "email": {
+          "required": "Correo Requerido",
+          "email": "Email Invalido"
+        },
+        "password": {
+          "required": "Contraseña Requerida",
+          "min-length": "Minimo {size} Caracteres",
+          "max-length": "Maximo {size} Caracteres"
+        },
+        "name": {
+          "required": "Nombre Requerido",
+          "min-length": "Minimo {size} Caracteres",
+          "max-length": "Maximo {size} Caracteres"
+        },
+        "description": {
+          "required": "Descripcion Requerida",
+          "max-length": "Maximo {size} Caracteres"
+        },
+        "card": {
+          "required": "Tarjeta Requerida",
+          "min-length": "Minimo {size} Digitos",
+          "max-length": "Maximo {size} Digitos"
+        },
+        "born": {
+          "required": "Fecha Requerida"
+        },
+        "photo": {
+          "required": "Foto Requerida",
+          "url": "Url Invalida"
+        }
+      },
+      "toast": {
+        "summary": "Error del Servidor"
+      },
+      "button": "Continuar",
+      "to-log-in": {
+        "has-account": "¿Ya tienes una cuenta?",
+        "log-in-now": "Inicia Sesion"
+      }
+    }
+  },
+  "library": {
+    "read-more": "Ver Mas",
+    "title": "Libros"
+  },
+  "podcast": {
+    "play": "Reproducir",
+    "title": "Podcasts"
+  },
+  "admin": {
+    "upload": {
+      "title": "Subir Media",
+      "inputs": {
+        "title": {
+          "title": "Título",
+          "placeholder": "Título"
+        },
+        "description": {
+          "title": "Descripción",
+          "placeholder": "Descripción"
+        },
+        "pic": {
+          "title": "Foto",
+          "placeholder": "Foto"
+        },
+        "url": {
+          "title": "Url",
+          "placeholder": "Url"
+        },
+        "premium": {
+          "title": "Suscripcion"
+        },
+        "type": {
+          "title": "Tipo de Media"
+        }
+      },
+      "validations": {
+        "title": {
+          "required": "Título Requerido",
+          "min-length": "{size} Caracteres Mínimo",
+          "max-length": "{size} Caracteres Máximo"
+        },
+        "description": {
+          "required": "Descripción Requerida",
+          "min-length": "{size} Caracteres Mínimo",
+          "max-length": "{size} Caracteres Máximo"
+        },
+        "pic": {
+          "required": "Foto Requerida",
+          "url": "Url Invalida"
+        },
+        "url": {
+          "required": "Url Requerida",
+          "url": "Url Invalida"
+        },
+        "premium": {
+          "required": "Suscripcion Requerida"
+        },
+        "type": {
+          "required": "Tipo de Media"
+        }
+      },
+      "button": "Continuar",
+      "toast": {
+        "error": "Error al subir",
+        "success": "{type} Subido"
+      }
+    }
+  }
+}

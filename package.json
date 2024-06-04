@@ -5,18 +5,28 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "fapi": "cd server && json-server-auth --watch db.json --routes routes.json",
+    "dev-responsive": "npm explore multiglancer -- npm run dev",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "pre-install": "npm install && npm explore multiglancer -- npm install"
   },
   "dependencies": {
     "axios": "^1.6.8",
+    "primeflex": "^3.3.1",
     "primeicons": "^7.0.0",
     "primevue": "^3.51.0",
     "vue": "^3.4.21",
+    "vue-i18n": "^9.13.1",
     "vue-router": "^4.3.2"
   },
   "devDependencies": {
+    "@eslint/js": "^9.3.0",
     "@vitejs/plugin-vue": "^5.0.4",
+    "eslint": "^9.3.0",
+    "eslint-plugin-vue": "^9.26.0",
+    "globals": "^15.3.0",
+    "multiglancer": "github:imvenx/multiglancer",
     "vite": "^5.2.8"
   }
 }
