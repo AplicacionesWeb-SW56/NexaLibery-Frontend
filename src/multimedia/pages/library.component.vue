@@ -20,11 +20,17 @@ export default {
       this.books = res.data.map(Book.fromResource);
     });
   },
+  methods: {
+    openBook(url) {
+      window.open(url, '_blank');
+    }
+  }
 };
 </script>
 <template>
   <pv-scroll-panel class="w-full h-30rem">
     <item-list
+      @click="openBook"
       :items="books"
       :button-text="$t('library.read-more')"
     />
