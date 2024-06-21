@@ -1,15 +1,27 @@
 <script>
 import LinkButton from "@/shared/components/link-button.component.vue";
 
+import { useAuthenticationStore } from "@/iam/services/authentication.store";
+
 export default {
   name: "navigation",
   components: {
     LinkButton,
   },
+  data() {
+    return {
+      authenticationStorage: useAuthenticationStore()
+    };
+  },
+  methods: {
+    isAuthenticated() {
+      return this.authenticationStorage.isSignedIn;
+    }
+  }
 };
 </script>
 <template>
-  <nav>
+  <nav v-if="isAuthenticated()">
     <ul class="flex flex-column list-none p-0 gap-2 md:gap-0 md:flex-row">
       <li>
         <link-button

@@ -1,7 +1,6 @@
 <script>
 import Navbar from "@/public/components/navbar.component.vue";
 import Sidebar from "@/public/components/sidebar.component.vue";
-import { LocalAuthApiService } from "@/shared/services/local-auth-api.service";
 import { UserApiService } from "@/user/services/user-api.service";
 
 export default {
@@ -13,7 +12,6 @@ export default {
   data() {
     return {
       userApi: new UserApiService(),
-      localAuthApi: new LocalAuthApiService(),
     };
   },
   methods: {},
@@ -21,14 +19,8 @@ export default {
 </script>
 
 <template>
-  <Sidebar
-    ref="sidebar"
-    :authenticated="localAuthApi.isAuth()"
-    :user="localAuthApi.getLocalUser()"
-  />
+  <Sidebar />
   <navbar
-    :authenticated="localAuthApi.isAuth()"
-    :user="localAuthApi.getLocalUser()"
     @toggle-sidebar="$refs.sidebar.toggleVisible()"
   />
   <main>

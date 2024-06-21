@@ -4,12 +4,11 @@ import Library from "@/multimedia/pages/library.component.vue";
 import Multimedia from "@/multimedia/pages/multimedia.component.vue";
 import Podcast from "@/multimedia/pages/podcast.component.vue";
 import UploadMedia from "@/multimedia/pages/upload-media.component.vue";
-import UserLogIn from "@/user/pages/user-log-in.component.vue";
-import UserLogOut from "@/user/pages/user-log-out.component.vue";
-import UserProfile from '@/user/pages/user-profile.component.vue';
-import UserSignIn from "@/user/pages/user-sign-in.component.vue";
+import UserProfile from "@/user/pages/user-profile.component.vue";
 
-import { LocalAuthApiService } from "@/shared/services/local-auth-api.service";
+import SignInComponent from "@/iam/pages/sign-in.component.vue";
+import SignUpComponent from "@/iam/pages/sign-up.component.vue";
+import { authenticationGuard } from "@/iam/services/authentication.guard";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -23,41 +22,49 @@ const router = createRouter({
       path: "/profile",
       name: "profile",
       component: UserProfile,
+      meta: {
+        title: "Profile",
+      },
     },
     {
       path: "/upload",
       name: "upload",
       component: UploadMedia,
-    },
-    {
-      path: "/log-in",
-      name: "login",
-      component: UserLogIn,
+      meta: {
+        title: "Upload",
+      },
     },
     {
       path: "/sign-in",
-      name: "signin",
-      component: UserSignIn,
+      name: "sign-in",
+      component: SignInComponent,
+      meta: {
+        title: "Sign In",
+      },
     },
     {
-      path: "/log-out",
-      name: "logout",
-      component: UserLogOut,
+      path: "/sign-up",
+      name: "sign-up",
+      component: SignUpComponent,
+      meta: { title: "Sign Up" },
     },
     {
       path: "/library",
       name: "library",
       component: Library,
+      meta: { title: "Library" },
     },
     {
       path: "/podcast",
       name: "podcast",
       component: Podcast,
+      meta: { title: "Podcast" },
     },
     {
       path: "/multimedia",
       name: "multimedia",
       component: Multimedia,
+      meta: { title: "Multimedia" },
     },
     {
       path: "/:pathMatch(.*)*",
@@ -68,15 +75,10 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const localAuthApi = new LocalAuthApiService();
-  const isAuth = localAuthApi.isAuth();
+  const baseTitle = "Nexalibery";
+  document.title = `${baseTitle} - ${to.meta["title"]}`;
 
-  if (!isAuth && to.name !== "login" && to.name !== "signin")
-    return next({ name: "login" });
-  if (isAuth && (to.name == "login" || to.name == "sigin"))
-    return next({ name: "home" });
-
-  return next();
+  authenticationGuard(to, from, next);
 });
 
 export default router;

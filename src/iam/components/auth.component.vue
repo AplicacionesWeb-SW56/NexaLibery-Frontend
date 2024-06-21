@@ -1,46 +1,60 @@
 <script>
 import LinkButton from "@/shared/components/link-button.component.vue";
+import { useAuthenticationStore } from "../services/authentication.store";
 
 export default {
   name: "auth",
   components: {
     LinkButton,
   },
+  data() {
+    return {
+      authenticationStorage: useAuthenticationStore(),
+    };
+  },
   props: {
-    authenticated: Boolean,
     pic: String,
   },
+  methods: {
+    signOut(){
+      this.authenticationStorage.signOut(this.$router);
+    },
+
+    isAuthenticated() {
+      return this.authenticationStorage.isSignedIn;
+    }
+  }
 };
 </script>
 <template>
   <nav
-    v-if="!authenticated"
+    v-if="!this.isAuthenticated()"
     class="gap-3 justify-content-between"
   >
     <ul class="flex flex-column gap-3 md:flex-row list-none p-0">
       <li>
         <link-button
-          to="/log-in"
+          to="/sign-in"
           transparent
         >
           <p>{{ $t("navigation.login") }}</p>
         </link-button>
       </li>
       <li>
-        <link-button to="/sign-in">
+        <link-button to="/sign-up">
           <p>{{ $t("navigation.signin") }}</p>
         </link-button>
       </li>
     </ul>
   </nav>
   <nav v-else>
-    <link-button
-      class="md:w-8rem"
-      to="/log-out"
+    <pv-button
+      class="w-full h-full py-2 px-3 gap-2 text"
+      @click="signOut()"
     >
       <i class="pi pi-sign-out" />
       <p>{{ $t("navigation.logout") }}</p>
-    </link-button>
+    </pv-button>
   </nav>
 </template>
 <style></style>

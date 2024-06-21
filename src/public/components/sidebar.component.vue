@@ -1,8 +1,9 @@
 <script>
 import Navigation from "@/public/components/navigation.component.vue";
-import Auth from "@/public/components/auth.component.vue";
-import LocalUser from "@/shared/model/local-user.entity";
+import Auth from "@/iam/components/auth.component.vue";
 import ProfileTag from "@/public/components/profile-tag.component.vue";
+
+import { useAuthenticationStore } from "@/iam/services/authentication.store";
 
 export default {
   name: "sidebar",
@@ -13,17 +14,22 @@ export default {
   },
   data() {
     return {
+      authenticationStorage: useAuthenticationStore(),
       visible: false,
     };
-  },
-  props: {
-    authenticated: Boolean,
-    user: LocalUser,
   },
   methods: {
     toggleVisible() {
       this.visible = true;
     },
+
+    getUsername(){
+      return this.authenticationStorage.currentUsername;
+    },
+
+    getUserPic(){
+      return "";
+    }
   },
 };
 </script>
@@ -36,13 +42,11 @@ export default {
     <div class="w-full h-full flex flex-column justify-content-evenly gap-5">
       <profile-tag
         class="w-8rem h-8rem align-self-center"
-        :photo="user?.photo"
-        :name="user?.name"
+        :photo="getUserPic()"
+        :name="getUsername()"
       />
       <navigation class="my-2" />
-      <auth
-        :authenticated="authenticated"
-      />
+      <auth />
     </div>
   </pv-sidebar>
 </template>

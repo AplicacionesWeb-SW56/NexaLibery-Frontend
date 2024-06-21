@@ -21,16 +21,16 @@ export const useAuthenticationStore = defineStore({
   actions: {
     async signIn(signInRequest, router) {
       authenticationService.signIn(signInRequest).then((response) => {
-        const signInResponse = new SignInResponse(response.data.id, response.data.name, response.data.token);
+        const signInResponse = new SignInResponse(response.data.user.id, response.data.user.name, response.data.accessToken);
         this.signedIn = true;
         this.userId = signInResponse.id;
         this.username = signInResponse.username;
         localStorage.setItem("token", signInResponse.token);
-        console.log(signInResponse.token)
+        console.log(signInResponse)
         router.push({name: "home"});
       }).catch((error) => {
         console.log(error);
-        router.pus({name: "sign-in"});
+        router.push({name: "sign-in"});
       });
     },
 
@@ -41,7 +41,7 @@ export const useAuthenticationStore = defineStore({
         router.push({name: "sign-in"});
       }).catch((error) => {
         console.log(error);
-        router.pus({name: "sign-in"});
+        router.push({name: "sign-in"});
       });
     },
 

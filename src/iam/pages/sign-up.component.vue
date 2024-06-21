@@ -1,8 +1,8 @@
 <script>
-import { LocalAuthApiService } from "@/shared/services/local-auth-api.service";
-import { FormGroup, FormControl, Validators } from "@/shared/utils/vue-form";
-import { AuthApiService } from "@/user/services/auth-api.service.js";
-import ValidatorFormMessage from "@/user/components/validator-form-message.component.vue";
+import { FormControl, FormGroup, Validators } from "@/shared/utils/vue-form";
+import ValidatorFormMessage from "@/iam/components/validator-form-message.component.vue";
+import { SignUpRequest } from "../models/sign-up.request";
+import { useAuthenticationStore } from "../services/authentication.store";
 
 export default {
   components: {
@@ -10,8 +10,6 @@ export default {
   },
   data() {
     return {
-      authApi: new AuthApiService(),
-      localAuthApi: new LocalAuthApiService(),
       form: new FormGroup({
         email: new FormControl("", [Validators.required(), Validators.email()]),
         password: new FormControl("", [
@@ -39,22 +37,28 @@ export default {
     };
   },
   methods: {
-    signIn() {
-      if (this.form.isValidForm())
-        this.authApi
-          .signIn(this.form.props())
-          .then((res) => {
-            this.localAuthApi.setLocalUser(res.data.user);
-            window.location.href = "/";
-          })
-          .catch((reason) => {
-            this.$toast.add({
-              severity: "error",
-              summary: this.$t("auth.signin.toast.summary"),
-              detail: reason.response?.data ?? reason.message,
-              life: 3000,
-            });
-          });
+    signUp() {
+      if (!this.form.isValidForm()) return;
+
+      const authenticationStore = useAuthenticationStore();
+      const formData = this.form.props();
+      const signUpRequest = new SignUpRequest(formData.username, formData.password);
+      authenticationStore.signUp(signUpRequest, this.$router)
+
+      // this.authApi
+      //   .signIn(this.form.props())
+      //   .then((res) => {
+      //     this.localAuthApi.setLocalUser(res.data.user);
+      //     window.location.href = "/";
+      //   })
+      //   .catch((reason) => {
+      //     this.$toast.add({
+      //       severity: "error",
+      //       summary: this.$t("auth.signin.toast.summary"),
+      //       detail: reason.response?.data ?? reason.message,
+      //       life: 3000,
+      //     });
+      //   });
     },
   },
 };
@@ -70,12 +74,12 @@ export default {
       </h2>
 
       <div class="flex justify-content-center">
-        {{ $t('auth.signin.to-log-in.has-account') }}
+        {{ $t("auth.signin.to-log-in.has-account") }}
         <router-link
           class="pl-1 text-primary"
           to="/log-in"
         >
-          {{ $t('auth.signin.to-log-in.log-in-now') }}
+          {{ $t("auth.signin.to-log-in.log-in-now") }}
         </router-link>
       </div>
 
@@ -294,7 +298,7 @@ export default {
         @click="
           () => {
             form.validateForm();
-            signIn();
+            signUp();
           }
         "
         :label="$t('auth.signin.button')"
@@ -305,4 +309,3 @@ export default {
   </div>
 </template>
 <style scoped></style>
-

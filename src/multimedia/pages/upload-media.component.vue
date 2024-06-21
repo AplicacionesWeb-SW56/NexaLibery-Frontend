@@ -1,6 +1,6 @@
 <script>
 import { FormGroup, FormControl, Validators } from "@/shared/utils/vue-form.js";
-import ValidatorFormMessage from "@/user/components/validator-form-message.component.vue";
+import ValidatorFormMessage from "@/iam/components/validator-form-message.component.vue";
 import { BookApiService } from "../services/book-api.service";
 import { PodcastApiService } from "../services/podcast-api.service";
 import { MultimediaApiService } from "../services/multimedia-api.service";
@@ -9,9 +9,6 @@ export default {
   name: "upload-media",
   components: {
     ValidatorFormMessage,
-  },
-  props: {
-    authenticated: Boolean,
   },
   data() {
     return {

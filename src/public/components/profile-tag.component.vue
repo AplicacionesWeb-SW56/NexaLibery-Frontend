@@ -1,28 +1,45 @@
 <script>
+import { useAuthenticationStore } from '@/iam/services/authentication.store';
+
 export default {
   name: "profile-tag",
-  props: {
-    photo: String,
-    name: String,
-    visible: Boolean,
+  data(){
+    return {
+     authenticationStorage: useAuthenticationStore() 
+    }
   },
+  methods: {
+    isAuthenticated() {
+      return this.authenticationStorage.isSignedIn;
+    },
+    getUsername(){
+      return this.authenticationStorage.currentUsername;
+    },
+    getUserPic(){
+      return "";
+    }
+  }
 };
 </script>
 
 <template>
   <div
     class="w-full h-full"
+    v-if="isAuthenticated()"
   >
     <router-link
       to="/profile"
       class="w-full h-full flex flex-column align-items-center justify-content-center"
     >
       <img
-        :src="photo"
+        :src="getUserPic()"
         class="w-full h-full border-circle"
       >
-      <p v-if="name" class="text-xl md:text-xs">
-        @{{ name }}
+      <p
+        v-if="getUsername()"
+        class="text-xl md:text-xs"
+      >
+        @{{ getUsername() }}
       </p>
     </router-link>
   </div>

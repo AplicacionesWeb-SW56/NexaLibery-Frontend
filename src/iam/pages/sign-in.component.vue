@@ -1,8 +1,8 @@
 <script>
-import { LocalAuthApiService } from '@/shared/services/local-auth-api.service';
-import { AuthApiService } from '@/user/services/auth-api.service.js';
-import { FormGroup, FormControl, Validators } from '@/shared/utils/vue-form.js'
-import ValidatorFormMessage from '@/user/components/validator-form-message.component.vue';
+import { FormControl, FormGroup, Validators } from '@/shared/utils/vue-form.js';
+import ValidatorFormMessage from '@/iam/components/validator-form-message.component.vue';
+import { SignInRequest } from '../models/sign-in.request';
+import { useAuthenticationStore } from '../services/authentication.store';
 
 export default {
     components: {
@@ -10,8 +10,6 @@ export default {
     },
     data() {
         return {
-            authApi: new AuthApiService(),
-            localAuthApi: new LocalAuthApiService(),
             form: new FormGroup({
                 email: new FormControl("", [Validators.required(), Validators.email()]),
                 password: new FormControl("", [Validators.required(), Validators.minLength(5), Validators.maxLength(18)])
@@ -19,21 +17,25 @@ export default {
         }
     },
     methods: {
-        logIn() {
+        signIn() {
             if(!this.form.isValidForm()) return;
-            this.authApi.logIn(this.form.props())
-                .then(res => {
-                    this.localAuthApi.setLocalUser(res.data.user)
-                    window.location.href = "/"
-                })
-                .catch(reason => {
-                    this.$toast.add({
-                        severity: 'error',
-                        summary: this.$t('auth.login.toast.summary'),
-                        detail: reason.response?.data ?? reason.message,
-                        life: 3000,
-                    })
-                })
+            const authenticationStore = useAuthenticationStore();
+            const formData = this.form.props();
+            const signInRequest = new SignInRequest(formData.email, formData.password);
+            authenticationStore.signIn(signInRequest, this.$router);
+            // this.authApi.logIn(this.form.props())
+            //     .then(res => {
+            //         this.localAuthApi.setLocalUser(res.data.user)
+            //         window.location.href = "/"
+            //     })
+            //     .catch(reason => {
+            //         this.$toast.add({
+            //             severity: 'error',
+            //             summary: this.$t('auth.login.toast.summary'),
+            //             detail: reason.response?.data ?? reason.message,
+            //             life: 3000,
+            //         })
+            //     })
         }
     }
 }
@@ -108,7 +110,7 @@ export default {
       </div>
 
       <pv-button 
-        @click="()=>{form.validateForm(); logIn()}" 
+        @click="()=>{form.validateForm(); signIn()}" 
         :label="$t('auth.login.button')"
         icon="pi pi-user"
         class="m-auto px-5 gap-2"
