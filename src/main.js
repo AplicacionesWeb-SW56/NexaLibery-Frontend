@@ -1,7 +1,11 @@
 import { createApp } from 'vue';
+import { createPinia } from 'pinia';
 import i18n from '@/i18n.js';
 import App from './app.vue';
 import router from './router';
+
+// pinia
+const pinia = createPinia();
 
 // prime vue integration
 import PrimeVue from 'primevue/config';
@@ -40,6 +44,10 @@ app.use(PrimeVue, { ripple: true });
 
 app.use(ToastService)
 
+app.use(i18n);
+app.use(pinia);
+app.use(router);
+
 app.component('pv-toast', Toast)
 app.component('pv-button', Button)
 app.component('pv-card', Card)
@@ -59,6 +67,4 @@ app.component('pv-calendar', Calendar)
 app.component('pv-data-view', DataView)
 app.component('pv-scroll-panel', ScrollPanel)
 
-app.use(i18n);
-app.use(router);
 app.mount('#app');
