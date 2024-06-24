@@ -19,7 +19,7 @@ export default {
 </script>
 
 <template>
-  <Sidebar />
+  <Sidebar ref="sidebar" />
   <navbar
     @toggle-sidebar="$refs.sidebar.toggleVisible()"
   />
