@@ -1,14 +1,18 @@
 <script>
-import { FormGroup, FormControl, Validators } from "@/shared/utils/vue-form.js";
 import ValidatorFormMessage from "@/iam/components/validator-form-message.component.vue";
+import PodcastPlayer from "@/multimedia/components/podcast-player.component.vue";
+import VideoPlayer from "@/multimedia/components/video-player.component.vue";
+import { FormControl, FormGroup, Validators } from "@/shared/utils/vue-form.js";
 import { BookApiService } from "../services/book-api.service";
-import { PodcastApiService } from "../services/podcast-api.service";
 import { MultimediaApiService } from "../services/multimedia-api.service";
+import { PodcastApiService } from "../services/podcast-api.service";
 
 export default {
   name: "upload-media",
   components: {
     ValidatorFormMessage,
+    VideoPlayer,
+    PodcastPlayer,
   },
   data() {
     return {
@@ -44,6 +48,9 @@ export default {
       const mediaService = mediaServices.get(selected);
 
       const resource = this.form.props();
+      if(resource.type == "Podcast") resource.url = this.podcastConverter(resource.url);
+      if(resource.type == "Multimedia") resource.url = this.videoConverter(resource.url);
+
       mediaService
         .create(resource)
         .then((response) => {
@@ -62,6 +69,27 @@ export default {
             life: 3000,
           });
         });
+    },
+    isSelectedProp(prop) {
+      return this.form.getControl("type").prop == prop;
+    },
+
+    podcastConverter(url) {
+      // url ends with "--{id}"
+      const id = url.split("--")[1];
+      return `https://widget.spreaker.com/player?episode_id=${id}&theme=dark&chapters-image=true`;
+    },
+
+    videoConverter(url) {
+      // youtube to embed
+      return `https://www.youtube.com/embed/${url.split("v=")[1]}`;
+    },
+
+    allowedBookTypes(url) {
+      // return allow if url extension is pdf
+      return url.endsWith(".pdf") ? 
+        this.$t("admin.upload.inputs.url.book.good") :
+        this.$t("admin.upload.inputs.url.book.bad");
     },
   },
   created() {
@@ -231,6 +259,40 @@ export default {
           :label="$t('admin.upload.validations.url.url')"
         />
       </div>
+
+      <pv-card class="mt-2 w-full h-20rem">
+        <template #content>
+          <div
+            :class="
+              isSelectedProp('Book')
+                ? 'block'
+                : 'hidden'.concat(' w-full h-20rem py-3')
+            "
+          >
+            <h2>{{ allowedBookTypes(form.getControl("url").prop) }}</h2>
+          </div>
+          <div
+            :class="
+              isSelectedProp('Podcast')
+                ? 'block'
+                : 'hidden'.concat(' w-full h-20rem py-3')
+            "
+          >
+            <podcast-player
+              :url="podcastConverter(form.getControl('url').prop)"
+            />
+          </div>
+          <div
+            :class="
+              (isSelectedProp('Multimedia') ? 'block' : 'hidden').concat(
+                ' w-full h-20rem py-3',
+              )
+            "
+          >
+            <video-player :url="videoConverter(form.getControl('url').prop)" />
+          </div>
+        </template>
+      </pv-card>
 
       <!-- premium -->
       <div class="flex flex-column">

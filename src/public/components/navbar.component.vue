@@ -2,7 +2,7 @@
 import LanguageSwitcher from '@/public/components/language-switcher.component.vue';
 import Navigation from '@/public/components/navigation.component.vue';
 import Auth from '@/iam/components/auth.component.vue';
-import ProfileTag from '@/public/components/profile-tag.component.vue';
+import ProfileTag from '@/iam/components/profile-tag.component.vue';
 
 import { useAuthenticationStore } from '@/iam/services/authentication.store';
 
@@ -72,7 +72,9 @@ export default {
           class="hidden md:block px-3"
         />
         <language-switcher />       
+        <div class="px-2" />
         <profile-tag
+          v-if="isAuthenticated()"
           class="hidden md:inline-block w-4rem h-4rem"
         />
       </template>

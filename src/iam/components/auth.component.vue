@@ -37,12 +37,12 @@ export default {
           to="/sign-in"
           transparent
         >
-          <p>{{ $t("navigation.login") }}</p>
+          <p>{{ $t("navigation.signup") }}</p>
         </link-button>
       </li>
       <li>
         <link-button to="/sign-up">
-          <p>{{ $t("navigation.signin") }}</p>
+          <p>{{ $t("navigation.signup") }}</p>
         </link-button>
       </li>
     </ul>

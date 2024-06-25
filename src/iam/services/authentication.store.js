@@ -8,49 +8,67 @@ const authenticationService = new AuthenticationApiService();
 export const useAuthenticationStore = defineStore({
   id: "authentication",
   state: () => ({
-    signedIn: false,
-    userId: 0,
-    username: ""
+    signedIn: false
   }),
   getters: {
-    isSignedIn: (state) => state["signedIn"],
-    currentUserId: (state) => state["userId"],
-    currentUsername: (state) => state["username"],
-    currentToken: () => localStorage.getItem("token")
+    isSignedIn: (state) => state.signedIn,
+    currentUserId: () => localStorage.getItem("userId"),
+    currentEmail: () => localStorage.getItem("userEmail"),
+    currentToken: () => localStorage.getItem("token"),
   },
   actions: {
-    async signIn(signInRequest, router) {
-      authenticationService.signIn(signInRequest).then((response) => {
-        const signInResponse = new SignInResponse(response.data.user.id, response.data.user.name, response.data.accessToken);
-        this.signedIn = true;
-        this.userId = signInResponse.id;
-        this.username = signInResponse.username;
+    persistAuthentication(){
+      if(this.signedIn) return;
+
+      const token = localStorage.getItem("token");
+      if(!token) return;
+
+      this.signedIn = true;
+    },
+    async signIn(signInRequest, router, onError = null) {
+      try {
+        const response = await authenticationService.signIn(signInRequest);
+        const signInResponse = new SignInResponse(
+          response.data.token,
+          response.data.id,
+          response.data.email,
+        );
         localStorage.setItem("token", signInResponse.token);
-        console.log(signInResponse)
-        router.push({name: "home"});
-      }).catch((error) => {
-        console.log(error);
-        router.push({name: "sign-in"});
-      });
+        localStorage.setItem("userId", signInResponse.id);
+        localStorage.setItem("userEmail", signInResponse.email);
+        this.signedIn = true;
+        console.log(signInResponse);
+        await router.push({ name: "home" });
+      } catch (error) {
+        if (onError) onError(error.response.data);
+        console.error(error);
+        const pushed = await router.push({ name: "sign-in" });
+        console.error("catch", pushed);
+      }
     },
 
-    async signUp(signUpRequest, router) {
-      authenticationService.signUp(signUpRequest).then((response) => {
-        const signUpResponse = new SignUpResponse(response.data.message);
-        console.log(signUpResponse.message);
-        router.push({name: "sign-in"});
-      }).catch((error) => {
-        console.log(error);
-        router.push({name: "sign-in"});
-      });
+    async signUp(signUpRequest, router, onError = null) {
+      authenticationService
+        .signUp(signUpRequest)
+        .then((response) => {
+          const signUpResponse = new SignUpResponse(response.data.message);
+
+          console.log(signUpResponse.message);
+          router.push({ name: "sign-in" });
+        })
+        .catch((error) => {
+          if (onError) onError(error.response.data);
+          console.log(error);
+          router.push({ name: "sign-up" });
+        });
     },
 
-    async signOut(router){
-      this.signedIn = false;
-      this.userId = 0;
-      this.username = "";
+    async signOut(router) {
       localStorage.removeItem("token");
-      await router.push({name: "sign-in"});
-    }
-  }
+      localStorage.removeItem("userId");
+      localStorage.removeItem("userEmail");
+      router.push({ name: "sign-in", force: true });
+      router.go(0);
+    },
+  },
 });

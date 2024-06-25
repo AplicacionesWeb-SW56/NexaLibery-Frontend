@@ -1,11 +1,11 @@
-import { auxHttp as http } from "@/shared/services/http-common";
+import http from "@/shared/services/http-common";
 
 export class AuthenticationApiService {
   signIn(signInbody) {
-    return http.post("/sign-in", signInbody);
+    return http.post("authentication/sign-in", signInbody);
   }
 
   signUp(signUpBody) {
-    return http.post("/sign-up", signUpBody);
+    return http.post("authentication/sign-up", signUpBody);
   }
 }

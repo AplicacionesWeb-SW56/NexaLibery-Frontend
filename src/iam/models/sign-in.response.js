@@ -1,7 +1,7 @@
 export class SignInResponse {
-  constructor(id, username, token) {
+  constructor(token, id, email) {
     this.id = id;
-    this.username = username;
+    this.email = email;
     this.token = token;
   }
 }

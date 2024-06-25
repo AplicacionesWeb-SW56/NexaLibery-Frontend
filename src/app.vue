@@ -1,7 +1,7 @@
 <script>
 import Navbar from "@/public/components/navbar.component.vue";
 import Sidebar from "@/public/components/sidebar.component.vue";
-import { UserApiService } from "@/user/services/user-api.service";
+import { useAuthenticationStore } from "./iam/services/authentication.store";
 
 export default {
   name: "app",
@@ -9,17 +9,19 @@ export default {
     Navbar,
     Sidebar,
   },
-  data() {
-    return {
-      userApi: new UserApiService(),
-    };
+  methods: {
+    isAuthenticated() {
+      return useAuthenticationStore().isSignedIn;
+    },
   },
-  methods: {},
 };
 </script>
 
 <template>
-  <Sidebar ref="sidebar" />
+  <Sidebar
+    ref="sidebar"
+    v-if="isAuthenticated()"
+  />
   <navbar
     @toggle-sidebar="$refs.sidebar.toggleVisible()"
   />

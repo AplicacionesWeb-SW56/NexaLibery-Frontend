@@ -3,9 +3,9 @@
     "library": "Library",
     "podcast": "Podcast",
     "multimedia": "Multimedia",
-    "login": "Log In",
+    "signin": "Log In",
     "logout": "Log Out",
-    "signin": "Register Now",
+    "signup": "Register Now",
     "profile": "Profile",
     "upload": "Upload"
   },
@@ -26,7 +26,7 @@
     "welcome-back": "Welcome back"
   },
   "auth": {
-    "login": {
+    "signin": {
       "title": "Log In",
       "toast": {
         "summary": "Server Error"
@@ -53,12 +53,12 @@
         }
       },
       "button": "Continue",
-      "to-sign-in": {
+      "tosignup": {
         "no-account": "Don't have an account?",
         "register-now": "Register Now"
       }
     },
-    "signin": {
+    "signup": {
       "title": "Register",
       "inputs": {
         "email": {
@@ -126,7 +126,7 @@
         "summary": "Server Error"
       },
       "button": "Continue",
-      "to-log-in": {
+      "tosignin": {
         "has-account": "Already have an account?",
         "log-in-now": "Log In Now"
       }
@@ -140,56 +140,60 @@
     "play": "Play",
     "title": "Podcasts"
   },
-  "admin":{
-    "upload":{
+  "admin": {
+    "upload": {
       "title": "Upload Media",
-      "inputs":{
-        "title":{
+      "inputs": {
+        "title": {
           "title": "Title",
           "placeholder": "Title"
         },
-        "description":{
+        "description": {
           "title": "Description",
           "placeholder": "Description"
         },
-        "pic":{
+        "pic": {
           "title": "Pic",
           "placeholder": "Pic"
         },
-        "url":{
+        "url": {
           "title": "Url",
-          "placeholder": "Url"
+          "placeholder": "Url",
+          "book": {
+            "good": "Link Allowed",
+            "bad": "Need to upload a pdf"
+          }
         },
-        "premium":{
+        "premium": {
           "title": "Suscription"
         },
-        "type":{
+        "type": {
           "title": "Media Type"
         }
       },
-      "validations":{
-        "title":{
+      "validations": {
+        "title": {
           "required": "Title Required",
           "min-length": "{size} Characters Minimum",
           "max-length": "{size} Characters Maximum"
         },
-        "description":{
+        "description": {
           "required": "Description Required",
           "min-length": "{size} Characters Minimum",
           "max-length": "{size} Characters Maximum"
         },
-        "pic":{
+        "pic": {
           "required": "Pic Required",
           "url": "Url Invalid"
         },
-        "url":{
+        "url": {
           "required": "Url Required",
           "url": "Url Invalid"
         },
-        "premium":{
+        "premium": {
           "required": "Suscription Required"
         },
-        "type":{
+        "type": {
           "required": "Media Type Required"
         }
       },

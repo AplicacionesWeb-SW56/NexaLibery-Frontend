@@ -42,23 +42,22 @@ export default {
 
       const authenticationStore = useAuthenticationStore();
       const formData = this.form.props();
-      const signUpRequest = new SignUpRequest(formData.username, formData.password);
-      authenticationStore.signUp(signUpRequest, this.$router)
-
-      // this.authApi
-      //   .signIn(this.form.props())
-      //   .then((res) => {
-      //     this.localAuthApi.setLocalUser(res.data.user);
-      //     window.location.href = "/";
-      //   })
-      //   .catch((reason) => {
-      //     this.$toast.add({
-      //       severity: "error",
-      //       summary: this.$t("auth.signin.toast.summary"),
-      //       detail: reason.response?.data ?? reason.message,
-      //       life: 3000,
-      //     });
-      //   });
+      const signUpRequest = new SignUpRequest(
+        formData.email,
+        formData.password,
+        formData.name,
+        formData.description,
+        formData.cardNumber,
+        formData.bornDate,
+        formData.photo
+      );
+      authenticationStore.signUp(signUpRequest, this.$router, (error) => {
+        this.$toast.add({
+          severity: "error",
+          detail: error.message,
+          life: 3000,
+        });
+      });
     },
   },
 };
@@ -70,16 +69,16 @@ export default {
   >
     <div class="flex flex-column gap-3">
       <h2 class="text-center font-bold pb-4 text-3xl">
-        {{ $t("auth.signin.title") }}
+        {{ $t("auth.signup.title") }}
       </h2>
 
       <div class="flex justify-content-center">
-        {{ $t("auth.signin.to-log-in.has-account") }}
+        {{ $t("auth.signup.tosignin.has-account") }}
         <router-link
           class="pl-1 text-primary"
           to="/log-in"
         >
-          {{ $t("auth.signin.to-log-in.log-in-now") }}
+          {{ $t("auth.signup.tosignin.log-in-now") }}
         </router-link>
       </div>
 
@@ -88,7 +87,7 @@ export default {
           for="email"
           class="block text-900 font-medium mb-2"
         >{{
-          $t("auth.signin.inputs.email.title")
+          $t("auth.signup.inputs.email.title")
         }}</label>
         <pv-input-text
           id="email"
@@ -96,15 +95,15 @@ export default {
           v-model="form.getControl('email').prop"
           @blur="() => form.validateControl('email')"
           :invalid="form.invalidControl('email')"
-          :placeholder="$t('auth.signin.inputs.email.placeholder')"
+          :placeholder="$t('auth.signup.inputs.email.placeholder')"
         />
         <validator-form-message
           :valid="form.validationControl('email', 'required')"
-          :label="$t('auth.signin.validations.email.required')"
+          :label="$t('auth.signup.validations.email.required')"
         />
         <validator-form-message
           :valid="form.validationControl('email', 'email')"
-          :label="$t('auth.signin.validations.email.email')"
+          :label="$t('auth.signup.validations.email.email')"
         />
       </div>
 
@@ -113,7 +112,7 @@ export default {
           for="password"
           class="block text-900 font-medium mb-2"
         >{{
-          $t("auth.signin.inputs.password.title")
+          $t("auth.signup.inputs.password.title")
         }}</label>
         <pv-input-text
           id="password"
@@ -125,22 +124,22 @@ export default {
             }
           "
           :invalid="form.invalidControl('password')"
-          :placeholder="$t('auth.signin.inputs.password.placeholder')"
+          :placeholder="$t('auth.signup.inputs.password.placeholder')"
         />
         <validator-form-message
           :valid="form.validationControl('password', 'required')"
-          :label="$t('auth.signin.validations.password.required')"
+          :label="$t('auth.signup.validations.password.required')"
         />
         <validator-form-message
           :valid="form.validationControl('password', 'minLength')"
           :label="
-            $t('auth.signin.validations.password.min-length', { size: 5 })
+            $t('auth.signup.validations.password.min-length', { size: 5 })
           "
         />
         <validator-form-message
           :valid="form.validationControl('password', 'maxLength')"
           :label="
-            $t('auth.signin.validations.password.max-length', { size: 18 })
+            $t('auth.signup.validations.password.max-length', { size: 18 })
           "
         />
       </div>
@@ -150,7 +149,7 @@ export default {
           for="name"
           class="block text-900 font-medium mb-2"
         >{{
-          $t("auth.signin.inputs.name.title")
+          $t("auth.signup.inputs.name.title")
         }}</label>
         <pv-input-text
           id="name"
@@ -162,19 +161,19 @@ export default {
             }
           "
           :invalid="form.invalidControl('name')"
-          :placeholder="$t('auth.signin.inputs.name.placeholder')"
+          :placeholder="$t('auth.signup.inputs.name.placeholder')"
         />
         <validator-form-message
           :valid="form.validationControl('name', 'required')"
-          :label="$t('auth.signin.validations.name.required')"
+          :label="$t('auth.signup.validations.name.required')"
         />
         <validator-form-message
           :valid="form.validationControl('name', 'minLength')"
-          :label="$t('auth.signin.validations.name.min-length', { size: 5 })"
+          :label="$t('auth.signup.validations.name.min-length', { size: 5 })"
         />
         <validator-form-message
           :valid="form.validationControl('name', 'maxLength')"
-          :label="$t('auth.signin.validations.name.max-length', { size: 18 })"
+          :label="$t('auth.signup.validations.name.max-length', { size: 18 })"
         />
       </div>
 
@@ -183,7 +182,7 @@ export default {
           for="description"
           class="block text-900 font-medium mb-2"
         >{{
-          $t("auth.signin.inputs.description.title")
+          $t("auth.signup.inputs.description.title")
         }}</label>
         <pv-text-area
           id="description"
@@ -198,16 +197,16 @@ export default {
             }
           "
           :invalid="form.invalidControl('description')"
-          :placeholder="$t('auth.signin.inputs.description.placeholder')"
+          :placeholder="$t('auth.signup.inputs.description.placeholder')"
         />
         <validator-form-message
           :valid="form.validationControl('description', 'required')"
-          :label="$t('auth.signin.validations.description.required')"
+          :label="$t('auth.signup.validations.description.required')"
         />
         <validator-form-message
           :valid="form.validationControl('description', 'maxLength')"
           :label="
-            $t('auth.signin.validations.description.max-length', { size: 50 })
+            $t('auth.signup.validations.description.max-length', { size: 50 })
           "
         />
       </div>
@@ -217,7 +216,7 @@ export default {
           for="card"
           class="block text-900 font-medium mb-2"
         >{{
-          $t("auth.signin.inputs.card.title")
+          $t("auth.signup.inputs.card.title")
         }}</label>
         <pv-input-mask
           id="card"
@@ -233,15 +232,15 @@ export default {
         />
         <validator-form-message
           :valid="form.validationControl('cardNumber', 'required')"
-          :label="$t('auth.signin.validations.card.required')"
+          :label="$t('auth.signup.validations.card.required')"
         />
         <validator-form-message
           :valid="form.validationControl('cardNumber', 'minLength')"
-          :label="$t('auth.signin.validations.card.min-length', { size: 16 })"
+          :label="$t('auth.signup.validations.card.min-length', { size: 16 })"
         />
         <validator-form-message
           :valid="form.validationControl('cardNumber', 'maxLength')"
-          :label="$t('auth.signin.validations.card.max-length', { size: 16 })"
+          :label="$t('auth.signup.validations.card.max-length', { size: 16 })"
         />
       </div>
 
@@ -250,7 +249,7 @@ export default {
           for="born"
           class="block text-900 font-medium mb-2"
         >{{
-          $t("auth.signin.inputs.born.title")
+          $t("auth.signup.inputs.born.title")
         }}</label>
         <pv-calendar
           id="born"
@@ -258,11 +257,11 @@ export default {
           v-model="form.getControl('bornDate').prop"
           @blur="() => form.validateControl('bornDate')"
           :invalid="form.invalidControl('bornDate')"
-          :placeholder="$t('auth.signin.inputs.born.placeholder')"
+          :placeholder="$t('auth.signup.inputs.born.placeholder')"
         />
         <validator-form-message
           :valid="form.validationControl('bornDate', 'required')"
-          :label="$t('auth.signin.validations.born.required')"
+          :label="$t('auth.signup.validations.born.required')"
         />
       </div>
 
@@ -271,7 +270,7 @@ export default {
           for="photo"
           class="block text-900 font-medium mb-2"
         >{{
-          $t("auth.signin.inputs.photo.title")
+          $t("auth.signup.inputs.photo.title")
         }}</label>
         <pv-input-text
           id="photo"
@@ -286,11 +285,11 @@ export default {
         />
         <validator-form-message
           :valid="form.validationControl('photo', 'required')"
-          :label="$t('auth.signin.validations.photo.required')"
+          :label="$t('auth.signup.validations.photo.required')"
         />
         <validator-form-message
           :valid="form.validationControl('photo', 'url')"
-          :label="$t('auth.signin.validations.photo.url')"
+          :label="$t('auth.signup.validations.photo.url')"
         />
       </div>
 
@@ -301,7 +300,7 @@ export default {
             signUp();
           }
         "
-        :label="$t('auth.signin.button')"
+        :label="$t('auth.signup.button')"
         icon="pi pi-user"
         class="m-auto px-5 gap-2"
       />

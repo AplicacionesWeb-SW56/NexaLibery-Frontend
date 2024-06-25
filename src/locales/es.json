@@ -3,9 +3,9 @@
     "library": "Libreria",
     "podcast": "Podcasts",
     "multimedia": "Multimedia",
-    "login": "Iniciar Sesion",
+    "signin": "Iniciar Sesion",
     "logout": "Salir",
-    "signin": "Registrarse",
+    "signup": "Registrarse",
     "profile": "Perfil",
     "upload": "Subir"
   },
@@ -26,7 +26,7 @@
     "welcome-back": "Bienvenido denuevo"
   },
   "auth": {
-    "login": {
+    "signin": {
       "title": "Iniciar Sesion",
       "inputs": {
         "email": {
@@ -53,12 +53,12 @@
         }
       },
       "button": "Continuar",
-      "to-sign-in": {
+      "tosignup": {
         "no-account": "¿No tienes una cuenta?",
         "register-now": "Unete"
       }
     },
-    "signin": {
+    "signup": {
       "title": "Registrarse",
       "inputs": {
         "email": {
@@ -126,7 +126,7 @@
         "summary": "Error del Servidor"
       },
       "button": "Continuar",
-      "to-log-in": {
+      "tosignin": {
         "has-account": "¿Ya tienes una cuenta?",
         "log-in-now": "Inicia Sesion"
       }
@@ -158,7 +158,11 @@
         },
         "url": {
           "title": "Url",
-          "placeholder": "Url"
+          "placeholder": "Url",
+          "book": {
+            "good": "Link Permitido",
+            "bad": "Se necesita un link de pdf"
+          }
         },
         "premium": {
           "title": "Suscripcion"

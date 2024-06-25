@@ -40,7 +40,7 @@ export default {
   </pv-scroll-panel>
   <podcast-player
     :url="currentPodcast"
-    class="fixed z-1 w-full h-10rem bottom-0 left-0"
+    class="fixed z-1 w-full h-8rem bottom-0 left-0"
   />
 </template>
 <style scoped></style>

@@ -1,5 +1,8 @@
 <script>
-import InformationCard from "../components/information-card.component.vue";
+import InformationCard from "@/iam/components/information-card.component.vue";
+import User from "@/iam/models/user.entity";
+import { useAuthenticationStore } from "@/iam/services/authentication.store";
+import { UserApiService } from "@/iam/services/user-api.service";
 
 export default {
   components: {
@@ -7,6 +10,7 @@ export default {
   },
   data() {
     return {
+      userService: new UserApiService(),
       user: null,
     }
   },
@@ -14,12 +18,11 @@ export default {
     
   },
   created(){
-    this.user = {
-      name: "John Doe",
-      email: "john.doe@example.com",
-      cardNumber: "1234567890123456",
-      photo: "https://picsum.photos/200/300",
-    };
+    const authenticationStorage = useAuthenticationStore();
+    const userId = authenticationStorage.currentUserId;
+    this.userService.getById(userId).then(response => {
+      this.user = User.fromResponse(response.data);
+    });
   }
 }
 </script>
@@ -30,11 +33,11 @@ export default {
       <div class="flex flex-column gap-4 md:flex-column">
         <information-card :title="$t('profile.payment-details.title')">
           <p>{{ $t("profile.payment-details.card-number") }}: <span>{{ this.user?.cardNumber }}</span></p>
-          <p>{{ $t("profile.payment-details.alias") }}: @<span>{{ this.user?.name }}</span></p>
+          <p>{{ $t("profile.payment-details.alias") }}: @<span>{{ this.user?.username }}</span></p>
         </information-card>
 
         <information-card :title="$t('profile.personal-info.title')">
-          <p>{{ $t("profile.personal-info.first-name") }}: <span>{{ this.user?.name }}</span></p>
+          <p>{{ $t("profile.personal-info.first-name") }}: <span>{{ this.user?.username }}</span></p>
           <p>{{ $t("profile.personal-info.email") }}: <span>{{ this.user?.email }}</span></p>
         </information-card>
       </div>
@@ -47,7 +50,7 @@ export default {
     </div>
     <div class="flex flex-column gap-5 align-items-center">
       <p class="text-2xl text-center">
-        {{ $t("profile.welcome-back") }}, <span class="text-2xl font-bold">@{{ this.user?.name.toUpperCase() }}</span>
+        {{ $t("profile.welcome-back") }}, <span class="text-2xl font-bold">@{{ this.user?.username.toUpperCase() }}</span>
       </p>
       <pv-image
         class="flex justify-content-center"
